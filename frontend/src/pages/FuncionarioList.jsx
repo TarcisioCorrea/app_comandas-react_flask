@@ -6,9 +6,9 @@ function FuncionarioList() {
     const navigate = useNavigate();
     return (
         <TableContainer component={Paper}>
-            <Toolbar sx={{ backgroundColor: '#ADD8E6', padding: 2, borderRadius: 1, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6" color="primary">Funcionários</Typography>
-                <Button color="primary" onClick={() => navigate('/funcionario')} startIcon={<FiberNew />}>Novo</Button>
+            <Toolbar sx={{ backgroundColor: '#092B38', padding: 2, borderRadius: 1, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6" color="white">Funcionários</Typography>
+                <Button color="white" onClick={() => navigate('/funcionario')} startIcon={<FiberNew />} sx={{color:'white', transition:'0.7s', '&:hover': { backgroundColor: '#3D94B6', color:'black'}}}>Novo</Button>
             </Toolbar>
             <Table>
                 <TableHead>

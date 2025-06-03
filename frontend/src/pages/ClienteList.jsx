@@ -6,9 +6,9 @@ function ClienteList() {
     const navigate = useNavigate();
     return (
         <TableContainer component={Paper}>
-            <Toolbar sx={{ backgroundColor: '#ADD8E6', padding: 2, borderRadius: 1, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6" color="primary">Clientes</Typography>
-                <Button color="primary" onClick={() => navigate('/cliente')} startIcon={<FiberNew />}>Novo</Button>
+            <Toolbar sx={{ backgroundColor: '#092B38', padding: 2, borderRadius: 1, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6" color="white">Clientes</Typography>
+                <Button color="primary" onClick={() => navigate('/cliente')} startIcon={<FiberNew />} sx={{color: 'white', transition:'0.7s', '&:hover': { backgroundColor: '#3D94B6', color:'black'}}}>Novo</Button>
             </Toolbar>
             <Table>
                 <TableHead>

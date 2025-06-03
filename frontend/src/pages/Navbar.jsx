@@ -29,18 +29,18 @@ const Navbar = () => {
         toast.info("Logout realizado com sucesso!");
     };
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{backgroundColor:'#092B38'}}>
             <Toolbar>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Comandas</Typography>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>Comandas</Typography>
                 {/* Renderiza os botões de navegação apenas se o usuário estiver autenticado */}
                 {isAuthenticated && (
                     <>
                         {/* conforme o tamanho da tela, define o que renderizar */}
-                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/home')}> <HomeIcon /> </IconButton>) : (<Button color="inherit" startIcon={<HomeIcon />} onClick={() => navigate('/home')}>Home</Button>)}
-                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/funcionarios')}> <PeopleIcon /> </IconButton>) : (<Button color="inherit" startIcon={<PeopleIcon />} onClick={() => navigate('/funcionarios')}>Funcionários</Button>)}
-                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/clientes')}> <PersonIcon /> </IconButton>) : (<Button color="inherit" startIcon={<PersonIcon />} onClick={() => navigate('/clientes')}>Clientes</Button>)}
-                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/produtos')}> <ShoppingCartIcon /> </IconButton>) : (<Button color="inherit" startIcon={<ShoppingCartIcon />} onClick={() => navigate('/produtos')}>Produtos</Button>)}
-                        {isSmallScreen ? (<IconButton color="inherit" onClick={handleLogout}> <LogoutIcon /> </IconButton>) : (<Button color="inherit" startIcon={<LogoutIcon />} onClick={handleLogout}>Sair</Button>)}
+                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/home')}> <HomeIcon /> </IconButton>) : (<Button color="inherit" startIcon={<HomeIcon />} onClick={() => navigate('/home')} sx={{'&:hover': { backgroundColor: '#3D94B6', color:'black'}, transition:'0.7s'}}>Home</Button>)}
+                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/funcionarios')}> <PeopleIcon /> </IconButton>) : (<Button color="inherit" startIcon={<PeopleIcon />} onClick={() => navigate('/funcionarios')} sx={{'&:hover': { backgroundColor: '#3D94B6', color:'black'}, transition:'0.7s'}}>Funcionários</Button>)}
+                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/clientes')}> <PersonIcon /> </IconButton>) : (<Button color="inherit" startIcon={<PersonIcon />} onClick={() => navigate('/clientes')} sx={{'&:hover': { backgroundColor: '#3D94B6', color:'black'}, transition:'0.7s'}}>Clientes</Button>)}
+                        {isSmallScreen ? (<IconButton color="inherit" onClick={() => navigate('/produtos')}> <ShoppingCartIcon /> </IconButton>) : (<Button color="inherit" startIcon={<ShoppingCartIcon />} onClick={() => navigate('/produtos')} sx={{'&:hover': { backgroundColor: '#3D94B6', color:'black'}, transition:'0.7s'}}>Produtos</Button>)}
+                        {isSmallScreen ? (<IconButton color="inherit" onClick={handleLogout}> <LogoutIcon /> </IconButton>) : (<Button color="inherit" startIcon={<LogoutIcon />} onClick={handleLogout} sx={{'&:hover': { backgroundColor: '#3D94B6', color:'black'}, transition:'0.7s'}}>Sair</Button>)}
                     </>
                 )}
             </Toolbar>

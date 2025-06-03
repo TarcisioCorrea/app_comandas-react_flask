@@ -8,9 +8,9 @@ const FuncionarioForm = () => {
         console.log("Dados do funcionário:", data);
     };
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ backgroundColor: '#ADD8E6', padding: 2, borderRadius: 1, mt: 2 }}>
-            <Toolbar sx={{ backgroundColor: '#ADD8E6', padding: 1, borderRadius: 2, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6" color="primary">Dados Funcionário</Typography>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ backgroundColor: '#AAE7FF', padding: 2, borderRadius: 1, mt: 2 }}>
+            <Toolbar sx={{ backgroundColor: '#092B38', padding: 1, borderRadius: 2, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6" color="white">Dados Funcionário</Typography>
             </Toolbar>
             <Box sx={{ backgroundColor: 'white', padding: 2, borderRadius: 3, mb: 2 }}>
 
@@ -41,7 +41,7 @@ const FuncionarioForm = () => {
                         />
                     )}
                 />
-                
+
                 <TextField
                     label="Matrícula" fullWidth margin="normal"
                     {...register('matricula', { required: 'Matrícula é obrigatória' })} error={!!errors.matricula} helperText={errors.matricula?.message}
@@ -88,11 +88,11 @@ const FuncionarioForm = () => {
                         <MenuItem value="funcionario">Funcionário</MenuItem>
                     </Select>
                 </FormControl>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-                    <Button sx={{ mr: 1 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2}}>
+                    <Button sx={{ mr: 1, backgroundColor: 'transparent', '&:hover': { backgroundColor: '#004561', color:'white'}, border: 'none', outline: 'none', color: '#092B38', transition:'1s'}}>
                         Cancelar
                     </Button>
-                    <Button type="submit" variant="contained">
+                    <Button type="submit" variant="contained" sx={{backgroundColor: '#092B38','&:hover': { backgroundColor: '#004561'}, border: 'none', outline: 'none', transition:'1s'}}>
                         Cadastrar
                     </Button>
                 </Box>

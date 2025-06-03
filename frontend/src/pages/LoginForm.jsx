@@ -20,11 +20,11 @@ const LoginForm = () => {
         }
     };
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ backgroundColor: '#ADD8E6', padding: 1, borderRadius: 1, mt: 2 }}>
-            <Toolbar sx={{ backgroundColor: '#ADD8E6', padding: 1, borderRadius: 2, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6" color="primary">Login</Typography>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ backgroundColor: '#092B38', padding: 1, borderRadius: 1, mt: 2 }}>
+            <Toolbar sx={{ backgroundColor: '#092B38', padding: 1, borderRadius: 2, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h2" color="white" sx={{fontWeight:'bold', fontSize:'2.5em'}}>Login</Typography>
             </Toolbar>
-            <Box sx={{ backgroundColor: 'white', padding: 2, borderRadius: 3, mb: 2 }}>
+            <Box sx={{ backgroundColor: 'white', padding: 2, borderRadius: 3, mb: 2}}>
                 <TextField label="Usuário" fullWidth margin="normal" onChange={(e) => setUsername(e.target.value)}
                     {...register('username', { required: 'Usuário é obrigatório' })} error={!!errors.username} helperText={errors.username?.message}
                 />
@@ -34,7 +34,7 @@ const LoginForm = () => {
                         minLength: { value: 6, message: 'Senha deve ter pelo menos 6 caracteres' }
                     })} error={!!errors.password} helperText={errors.password?.message}
                 />
-                <Button type="submit" variant="contained" fullWidth color="primary"> Entrar </Button>
+                <Button type="submit" variant="contained" fullWidth color="primary" sx={{backgroundColor:'#092B38', '&:hover': {backgroundColor:'#3D94B6', color:'black'}, transition:'0.7s'}}> Entrar </Button>
             </Box>
         </Box>
     );
