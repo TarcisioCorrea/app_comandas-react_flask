@@ -4,6 +4,8 @@ from datetime import timedelta
 import logging
 from settings import PROXY_PORT, PROXY_DEBUG, TEMPO_SESSION # carrega o arquivo .env, variáveis de ambiente
 
+from funcoes import Funcoes
+
 # Configuração básica de logging
 logging.basicConfig(level=logging.INFO)
 
@@ -19,6 +21,10 @@ def favicon():
         path='favicon.ico',
         mimetype='image/vnd.microsoft.icon'
     )
+
+@app.route('/api/teste_token', methods=['POST'])
+def teste_token():
+    return Funcoes.get_api_token()
 
 # gerando uma chave randômica para secret_key
 app.secret_key = os.urandom(12).hex()
