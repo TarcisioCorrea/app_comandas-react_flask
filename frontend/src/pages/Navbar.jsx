@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
     // useNavigate é um hook do React Router que permite programaticamente navegar entre rotas
@@ -10,6 +11,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         logout();
+        toast.info("Logout realizado com sucesso!");
     };
     return (
         <AppBar position="static">

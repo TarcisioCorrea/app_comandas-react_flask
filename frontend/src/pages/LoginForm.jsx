@@ -2,15 +2,22 @@ import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Box, Typography, Toolbar } from "@mui/material";
+import { toast } from "react-toastify";
+
 const LoginForm = () => {
-    
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
+
     const { login } = useAuth();
-    
+
     const onSubmit = (data) => {
         const { username, password } = data;
         login(username, password);
+        if (data.username == 'abc' && data.password == 'bolinhas') {
+            toast.success("Login realizado com sucesso!");
+        } else {
+            toast.error("Usuário ou senha inválidos!");
+        }
     };
     return (
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ backgroundColor: '#ADD8E6', padding: 1, borderRadius: 1, mt: 2 }}>
