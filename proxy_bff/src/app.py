@@ -1,6 +1,7 @@
 import os
 from flask import Flask, send_from_directory, session
 from datetime import timedelta
+from flask_cors import CORS
 import logging
 from settings import PROXY_PORT, PROXY_DEBUG, TEMPO_SESSION # carrega o arquivo .env, variáveis de ambiente
 from funcoes import Funcoes
@@ -14,6 +15,8 @@ logging.basicConfig(level=logging.INFO)
 
 # Aplicação Flask
 app = Flask(__name__)
+
+CORS(app, resources={r"/api/*": {"origins": f"{FRONTEND_URL}"}})
 
 # Flask não serve automaticamente o favicon, então você precisa criar uma rota para ele
 # crie um arquivo favicon.ico na pasta static
