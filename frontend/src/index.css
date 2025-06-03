@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: rgb(54, 54, 54);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,9 +25,22 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center;
+  align-items: flex-start;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #222222;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%; /* Largura total do root */
+  max-width: 900px; /* Define uma largura máxima para o conteúdo */
+  background-color: white; /* Cor de fundo do conteúdo */
+  padding: 16px; /* Espaçamento interno */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar o conteúdo */
+  box-sizing: border-box; /* Inclui padding no cálculo do tamanho */
 }
 
 h1 {
