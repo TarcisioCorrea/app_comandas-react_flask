@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       {/* O AuthProvider envolve toda a aplicação, permitindo que os componentes filhos acessem o contexto de autenticação */}
       <AuthProvider>
-        {/* O ToastContainer é o componente que renderiza as notificações na tela */}
-        <ToastContainer position="top-center" autoClose={3000} />
+          {/* O ToastContainer é o componente que renderiza as notificações na tela */}
+          <ToastContainer position="top-center" autoClose={3000} />
         {/* O Navbar é o componente de navegação que contém os links para as diferentes páginas da aplicação */}
         <Navbar />
         {/* O Container é um componente do Material-UI que fornece um layout responsivo e centralizado */}

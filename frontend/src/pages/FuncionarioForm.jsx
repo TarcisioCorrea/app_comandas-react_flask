@@ -1,17 +1,9 @@
-import { useForm } from 'react-hook-form';
-import {
-    TextField,
-    Button,
-    Box,
-    Typography,
-    MenuItem,
-    FormControl,
-    InputLabel,
-    Select,
-    Toolbar
-} from '@mui/material';
+import { useForm, Controller } from 'react-hook-form';
+import {TextField, Button, Box, Typography, MenuItem, FormControl, InputLabel, Select, Toolbar} from '@mui/material';
+import IMaskInputWrapper from '../components/IMaskInputWrapper';
+
 const FuncionarioForm = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { control, register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         console.log("Dados do funcionário:", data);
     };
@@ -26,6 +18,7 @@ const FuncionarioForm = () => {
                     label="Nome" fullWidth margin="normal"
                     {...register('nome', { required: 'Nome é obrigatório' })} error={!!errors.nome} helperText={errors.nome?.message}
                 />
+                
                 <TextField
                     label="CPF" fullWidth margin="normal"
                     {...register('cpf', { required: 'CPF é obrigatório' })} error={!!errors.cpf} helperText={errors.cpf?.message}
