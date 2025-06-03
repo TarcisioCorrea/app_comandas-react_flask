@@ -1,7 +1,9 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button, Box, Typography, MenuItem, FormControl, InputLabel, Select, Toolbar } from '@mui/material';
+import IMaskInputWrapper from '../components/IMaskInputWrapper';
+
 const ClienteForm = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { control, register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         console.log("Dados do cliente:", data);
     };
@@ -15,14 +17,51 @@ const ClienteForm = () => {
                     label="Nome" fullWidth margin="normal"
                     {...register('nome', { required: 'Nome é obrigatório' })} error={!!errors.nome} helperText={errors.nome?.message}
                 />
-                <TextField
-                    label="CPF" fullWidth margin="normal"
-                    {...register('cpf', { required: 'CPF é obrigatório' })} error={!!errors.cpf} helperText={errors.cpf?.message}
+
+                {/* CPF com máscara */}
+                <Controller
+                    name="cpf" control={control} defaultValue="" rules={{ required: 'CPF é obrigatório' }}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            label="CPF" fullWidth margin="normal"
+                            error={!!errors.cpf} helperText={errors.cpf?.message}
+                            InputProps={{
+                                // Define o IMaskInputWrapper como o componente de entrada
+                                inputComponent: IMaskInputWrapper,
+                                inputProps: {
+                                    mask: "000.000.000-00",
+                                    // O regex [0-9] aceita apenas números de 0 a 9
+                                    definitions: {"0": /[0-9]/,},
+                                    // Retorna apenas os números no valor
+                                    unmask: true,
+                                },
+                            }}
+                        />
+                    )}
                 />
                 
-                <TextField
-                    label="Telefone" fullWidth margin="normal" 
-                    {...register('telefone', { required: 'Telefone é obrigatório' })} error={!!errors.telefone} helperText={errors.telefone?.message}
+                {/* Telefone com máscara */}
+                <Controller
+                    name="telefone" control={control} defaultValue="" rules={{ required: 'Telefone é obrigatório' }}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            label="Telefone" fullWidth margin="normal"
+                            error={!!errors.telefone} helperText={errors.telefone?.message}
+                            InputProps={{
+                                // Define o IMaskInputWrapper como o componente de entrada
+                                inputComponent: IMaskInputWrapper,
+                                inputProps: {
+                                    mask: "(00) 0 0000-0000",
+                                    // O regex [0-9] aceita apenas números de 0 a 9
+                                    definitions: {"0": /[0-9]/,},
+                                    // Retorna apenas os números no valor
+                                    unmask: true,
+                                },
+                            }}
+                        />
+                    )}
                 />
                 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
