@@ -1,11 +1,16 @@
+// useEffect executar efeitos colaterais, como buscar dados da API / Proxy/BFF ao carregar o componente.
+// useState gerenciar o estado local do componente, como a lista de funcionários.
 import React, { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Toolbar, Typography, IconButton, Button, useMediaQuery, } from '@mui/material';
 import { Edit, Delete, Visibility, FiberNew } from '@mui/icons-material';
+// useNavigate navegar entre páginas.
 import { useNavigate } from 'react-router-dom';
+// serviços - funções para buscar e deletar funcionários
 import { getFuncionarios, deleteFuncionario } from '../services/funcionarioService';
+// mensagens de sucesso, erro e confirmação
 import { toast } from 'react-toastify';
+// useTheme para acessar o tema do Material-UI.
 import { useTheme } from '@mui/material/styles';
-
 function FuncionarioList() {
     // O useNavigate é um hook que permite navegar programaticamente entre as rotas da aplicação
     const navigate = useNavigate();
@@ -19,6 +24,7 @@ function FuncionarioList() {
     // Aqui, estamos criando um estado chamado funcionarios e uma função para atualizá-lo chamada setFuncionarios.
     // O estado inicial é um array vazio, que será preenchido com os dados dos funcionários após a chamada da API / Proxy/BFF.
     const [funcionarios, setFuncionarios] = useState([]);
+
     // useEffect usado para executar efeitos colaterais, como buscar dados da API / Proxy/BFF ao carregar o componente.
     // O array vazio [] significa que o efeito será executado apenas uma vez, quando o componente for montado.
     useEffect(() => {
@@ -34,6 +40,7 @@ function FuncionarioList() {
             console.error('Erro ao buscar funcionários:', error);
         }
     };
+
     // Função para lidar com o clique no botão de deletar funcionário
     // handleDeleteClick: função que exibe um toast de confirmação antes de excluir o funcionário.
     const handleDeleteClick = (funcionario) => {
@@ -64,11 +71,12 @@ function FuncionarioList() {
             toast.error('Erro ao excluir funcionário.', { position: "top-center" });
         }
     };
+
     return (
         <TableContainer component={Paper}>
             <Toolbar sx={{ backgroundColor: '#092B38', padding: 2, borderRadius: 1, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="h6" color="white">Funcionários</Typography>
-                <Button color="white" onClick={() => navigate('/funcionario')} startIcon={<FiberNew />} sx={{ color: 'white', transition: '0.7s', '&:hover': { backgroundColor: '#3D94B6', color: 'black' } }}>Novo</Button>
+                <Button color="white" onClick={() => navigate('/funcionario')} startIcon={<FiberNew />} sx={{color: 'white', transition:'0.7s', '&:hover': { backgroundColor: '#3D94B6', color:'black'}}}>Novo</Button>
             </Toolbar>
             <Table>
                 <TableHead>
