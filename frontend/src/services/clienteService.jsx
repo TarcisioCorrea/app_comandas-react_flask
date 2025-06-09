@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 const PROXY_URL = import.meta.env.VITE_PROXY_BASE_URL + "cliente/";
+
 // Obter todos os clientes
 export const getClientes = async () => {
     const response = await axios.get(`${PROXY_URL}all`);

@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 const PROXY_URL = import.meta.env.VITE_PROXY_BASE_URL + "funcionario/";
+
 // Obter todos os funcionários
 export const getFuncionarios = async () => {
     const response = await axios.get(`${PROXY_URL}all`);

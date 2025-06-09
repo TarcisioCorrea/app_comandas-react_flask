@@ -1,37 +1,21 @@
-// useEffect executar efeitos colaterais, como buscar dados da API / Proxy/BFF ao carregar o componente.
-// useState gerenciar o estado local do componente, como a lista de funcionários.
 import React, { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Toolbar, Typography, IconButton, Button, useMediaQuery, } from '@mui/material';
 import { Edit, Delete, Visibility, FiberNew } from '@mui/icons-material';
-// useNavigate navegar entre páginas.
 import { useNavigate } from 'react-router-dom';
-// serviços - funções para buscar e deletar funcionários
 import { getFuncionarios, deleteFuncionario } from '../services/funcionarioService';
-// mensagens de sucesso, erro e confirmação
 import { toast } from 'react-toastify';
-// useTheme para acessar o tema do Material-UI.
 import { useTheme } from '@mui/material/styles';
 function FuncionarioList() {
-    // O useNavigate é um hook que permite navegar programaticamente entre as rotas da aplicação
+    
     const navigate = useNavigate();
-    // Hook para detectar o tamanho da tela
-    // theme: Obtém o tema do Material-UI.
     const theme = useTheme();
-    // Aqui, estamos verificando se a tela é menor ou igual ao breakpoint 'sm' definido no tema
-    // O valor 'sm' é definido no tema do Material-UI e representa um breakpoint específico (geralmente 600px)
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    // useState: usado para gerenciar o estado local do componente, como a lista de funcionários.
-    // Aqui, estamos criando um estado chamado funcionarios e uma função para atualizá-lo chamada setFuncionarios.
-    // O estado inicial é um array vazio, que será preenchido com os dados dos funcionários após a chamada da API / Proxy/BFF.
     const [funcionarios, setFuncionarios] = useState([]);
 
-    // useEffect usado para executar efeitos colaterais, como buscar dados da API / Proxy/BFF ao carregar o componente.
-    // O array vazio [] significa que o efeito será executado apenas uma vez, quando o componente for montado.
     useEffect(() => {
         fetchFuncionarios();
     }, []);
-    // Função para buscar a lista de funcionários da API / Proxy/BFF
-    // getFuncionarios: função que faz a chamada à API / Proxy/BFF para buscar os funcionários.
+    
     const fetchFuncionarios = async () => {
         try {
             const data = await getFuncionarios();
@@ -41,8 +25,6 @@ function FuncionarioList() {
         }
     };
 
-    // Função para lidar com o clique no botão de deletar funcionário
-    // handleDeleteClick: função que exibe um toast de confirmação antes de excluir o funcionário.
     const handleDeleteClick = (funcionario) => {
         toast(
             <div>
@@ -64,7 +46,7 @@ function FuncionarioList() {
         try {
             await deleteFuncionario(id);
             fetchFuncionarios();
-            toast.dismiss(); // Fecha o toast após a exclusão
+            toast.dismiss(); 
             toast.success('Funcionário excluído com sucesso!', { position: "top-center" });
         } catch (error) {
             console.error('Erro ao deletar funcionário:', error);
