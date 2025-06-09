@@ -82,7 +82,7 @@ function ProdutoList() {
                         <TableRow key={produto.id_produto}>
                             <TableCell>{produto.id_produto}</TableCell>
                             <TableCell>{produto.nome}</TableCell>
-                            <TableCell>{produto.valor}</TableCell>
+                            <TableCell>{produto.valor_unitario}</TableCell>
                             {!isSmallScreen && (
                                 <>
                                     <TableCell>{produto.descricao}</TableCell>
