@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { TextField, Button, Box, Typography, MenuItem, FormControl, InputLabel, Select, Toolbar, } from '@mui/material';
+import { TextField, Button, Box, Typography, MenuItem, FormControl, InputLabel, Select, Toolbar, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import IMaskInputWrapper from '../components/IMaskInputWrapper';
-import { createFuncionario, updateFuncionario, getFuncionarioById } from '../services/funcionarioService';
+import { createFuncionario, updateFuncionario, getFuncionarioById, checkCpfExist } from '../services/funcionarioService';
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 
 const FuncionarioForm = () => {
-    
     const { id, opr } = useParams();
-    
     const navigate = useNavigate();
-    
     const { control, handleSubmit, reset, formState: { errors } } = useForm();
-    
+    const [openDialog, setOpenDialog] = useState(false);
+    const [existingFuncionarioId, setExistingFuncionarioId] = useState(null);
+
     const isReadOnly = opr === 'view';
+
     let title;
     if (opr === 'view') {
         title = `Visualizar Funcionário: ${id}`;
@@ -24,6 +24,24 @@ const FuncionarioForm = () => {
     } else {
         title = "Novo Funcionário";
     }
+
+    const validateCpf = async (cpf) => {
+        if (!cpf) return true;
+
+        try {
+            const { exists, existingId } = await checkCpfExist(cpf, id);
+
+            if (exists) {
+                setExistingFuncionarioId(existingId);
+                setOpenDialog(true);
+                return "CPF já cadastrado";
+            }
+            return true;
+        } catch (error) {
+            console.error("Erro na validação do CPF:", error);
+            return "Erro ao validar CPF";
+        }
+    };
 
     useEffect(() => {
         if (id) {
@@ -34,7 +52,7 @@ const FuncionarioForm = () => {
             fetchFuncionario();
         }
     }, [id, reset]);
-    
+
     const onSubmit = async (data) => {
         try {
             let retorno;
@@ -61,7 +79,6 @@ const FuncionarioForm = () => {
             <Toolbar sx={{ backgroundColor: '#092B38', padding: 1, borderRadius: 2, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="h6" gutterBottom color="white">{title}</Typography>
             </Toolbar>
-            
             <Box sx={{ backgroundColor: 'white', padding: 2, borderRadius: 3, mb: 2 }}>
                 {opr === 'view' && (
                     <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
@@ -74,9 +91,9 @@ const FuncionarioForm = () => {
                     )}
                 />
                 {/* CPF com máscara */}
-                <Controller name="cpf" control={control} defaultValue="" rules={{ required: "CPF é obrigatório" }}
+                <Controller name="cpf" control={control} defaultValue="" rules={{ required: "CPF é obrigatório", validate: validateCpf }}
                     render={({ field }) => (
-                        <TextField {...field} disabled={isReadOnly} label="CPF" fullWidth margin="normal" error={!!errors.cpf} helperText={errors.cpf?.message}
+                        <TextField {...field} disabled={isReadOnly} label="CPF" fullWidth margin="normal" error={!!errors.cpf} helperText={errors.cpf?.message} onBlur={() => !isReadOnly && trigger("cpf")}
                             InputProps={{
                                 // Define o IMaskInputWrapper como o componente de entrada
                                 inputComponent: IMaskInputWrapper,
@@ -93,6 +110,40 @@ const FuncionarioForm = () => {
                         />
                     )}
                 />
+
+                <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+                    <DialogTitle>CPF já cadastrado</DialogTitle>
+                    <DialogContent>
+                        <Typography>
+                            Já existe um funcionário com este CPF cadastrado.
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+                            Escolha uma ação:
+                        </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpenDialog(false)}>Cancelar</Button>
+                        <Button
+                            onClick={() => {
+                                navigate(`/funcionario/view/${existingFuncionarioId}`);
+                                setOpenDialog(false);
+                            }}
+                            color="primary"
+                        >
+                            Visualizar
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                navigate(`/funcionario/edit/${existingFuncionarioId}`);
+                                setOpenDialog(false);
+                            }}
+                            color="primary"
+                        >
+                            Editar
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
                 <Controller name="matricula" control={control} defaultValue="" rules={{ required: "Matrícula é obrigatória" }}
 
                     render={({ field }) => (
@@ -137,9 +188,9 @@ const FuncionarioForm = () => {
                     )}
                 />
                 <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                    <Button onClick={() => navigate('/funcionarios')} sx={{ mr: 1, backgroundColor: 'transparent', border: 'none', outline: 'none', color: '#092B38', transition:'1s', '&:hover': { backgroundColor: '#004561', color:'white'}}}>Cancelar</Button>
+                    <Button onClick={() => navigate('/funcionarios')} sx={{ mr: 1, backgroundColor: 'transparent', border: 'none', outline: 'none', color: '#092B38', transition: '1s', '&:hover': { backgroundColor: '#004561', color: 'white' } }}>Cancelar</Button>
                     {opr !== 'view' && (
-                        <Button type="submit" variant="contained" color="primary" sx={{backgroundColor: '#092B38', '&:hover': { backgroundColor: '#004561'}, border: 'none', outline: 'none', transition:'1s'}}>{id ? "Atualizar" : "Cadastrar"}</Button>
+                        <Button type="submit" variant="contained" color="primary" sx={{ backgroundColor: '#092B38', '&:hover': { backgroundColor: '#004561' }, border: 'none', outline: 'none', transition: '1s' }}>{id ? "Atualizar" : "Cadastrar"}</Button>
                     )}
                 </Box>
             </Box>

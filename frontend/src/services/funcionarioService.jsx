@@ -27,3 +27,27 @@ export const deleteFuncionario = async (id) => {
     const response = await axios.delete(`${PROXY_URL}`, { params: { id_funcionario: id } });
     return response.data;
 };
+
+//validar cpf
+export const checkCpfExist = async (cpf, currentId = null) => {
+  try {
+    const allFuncionarios = await getFuncionarios();
+
+    // Encontra funcionário com o mesmo CPF, excluindo o atual em edição
+    const existing = allFuncionarios.find(
+      (f) =>
+        f.cpf === cpf &&
+        (!currentId || f.id_funcionario !== parseInt(currentId))
+    );
+
+    return {
+      exists: !!existing,
+      existingId: existing?.id_funcionario || null,
+    };
+  } catch (error) {
+    console.error("Erro ao verificar CPF:", error);
+    return { exists: false, existingId: null };
+  }
+};
+
+
