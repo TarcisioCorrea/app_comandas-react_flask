@@ -72,7 +72,7 @@ class Funcoes(object):
             
         # Se chegar aqui, significa que não foi possível obter um token válido
         return False
-    
+
     @staticmethod
     def make_api_request(method, url, data=None, params=None):
         # verifica se tem um token dentro da validade
