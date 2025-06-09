@@ -85,8 +85,14 @@ function ProdutoList() {
                             <TableCell>{produto.valor_unitario}</TableCell>
                             {!isSmallScreen && (
                                 <>
+                                    <TableCell>
+                                        {produto.foto ? (
+                                            <img src={produto.foto} alt={produto.nome} style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '8px' }} />
+                                        ) : (
+                                            <Typography variant="body2" color="textSecondary">Sem foto</Typography>
+                                        )}
+                                    </TableCell>
                                     <TableCell>{produto.descricao}</TableCell>
-                                    <TableCell>{produto.foto}</TableCell>
                                 </>
                             )}
 

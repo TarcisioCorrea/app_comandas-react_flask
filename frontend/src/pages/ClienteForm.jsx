@@ -55,7 +55,7 @@ const ClienteForm = () => {
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ backgroundColor: '#AAE7FF', padding: 2, borderRadius: 1, mt: 2 }}>
 
             <Toolbar sx={{ backgroundColor: '#092B38', padding: 1, borderRadius: 2, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6" color="white">Dados Cliente</Typography>
+                <Typography variant="h6" color="white">{title}</Typography>
             </Toolbar>
 
             <Box sx={{ backgroundColor: 'white', padding: 2, borderRadius: 3, mb: 2 }}>
